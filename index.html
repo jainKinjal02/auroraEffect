@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Northern Lights with Enhanced Green Shade and Shooting Star</title>
+    <title>aurora effect</title>
     <style>
         body { margin: 0; overflow: hidden; }
         canvas { display: block; }
@@ -30,6 +30,7 @@
                 u_resolution: { type: "v2", value: new THREE.Vector2() }
             };
 
+            // GLSL shader
             const fragmentShader = `
                 uniform vec2 u_resolution;
                 uniform float u_time;
@@ -111,11 +112,11 @@
                     float speed = 0.25;
                     float tailLength = 0.15;
                     
-                    // Calculate the position of the shooting star
+                    // calculate position of the shooting star
                     float x = fract(time * speed);
                     float y = 1.0 - x; // Move from top-left to bottom-right
                     
-                    // Calculate distance from current pixel to the shooting star line
+                    // calculate distance from current pixel to the shooting star line
                     vec2 shootingStarPos = vec2(x, y);
                     vec2 delta = uv - shootingStarPos;
                     float dist = length(delta);
@@ -174,6 +175,7 @@
             camera.right = width;
             camera.top = height;
             camera.bottom = -height;
+
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
             uniforms.u_resolution.value.x = renderer.domElement.width;
@@ -181,6 +183,7 @@
         }
 
         function animate(delta) {
+            //console.log(delta);
             requestAnimationFrame(animate);
             render(delta);
         }
